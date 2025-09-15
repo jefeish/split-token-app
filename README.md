@@ -4,7 +4,7 @@
 
 ---
 
-## Requirements for a robust solution to the GitHub 500-repo token limit:
+## Requirements for a solution to the GitHub 500-repo token limit:
 
 ### Summary of requirements:
 
