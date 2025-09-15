@@ -96,11 +96,11 @@ async function getBatchTokenForRepo(app, repoFullName) {
 
   // Check if token exists and is not expired
   if (batchEntry && batchEntry.token && batchEntry.expiresAt > new Date()) {
-    console.log(`[batchTokenCache] Cache hit for repo '${repoFullName}' (installation ${installationId}, batch ${batchIndex})`);
+    app.log.info(`[batchTokenCache] Cache hit for repo '${repoFullName}' (installation ${installationId}, batch ${batchIndex})`);
     return batchEntry.token;
   }
 
-  console.log(`[batchTokenCache] Cache miss or expired token for repo '${repoFullName}' (installation ${installationId}, batch ${batchIndex}). Requesting new token...`);
+  app.log.info(`[batchTokenCache] Cache miss or expired token for repo '${repoFullName}' (installation ${installationId}, batch ${batchIndex}). Requesting new token...`);
 
   const appAuth = await app.auth();
   const { data: tokenData } = await appAuth.request(
@@ -114,7 +114,7 @@ async function getBatchTokenForRepo(app, repoFullName) {
   const expiresAt = new Date(Date.now() + TOKEN_EXPIRY);
   batchEntry = { batch, token: tokenData.token, expiresAt };
   batchTokenCache[installationId][batchIndex] = batchEntry;
-  console.log(`[batchTokenCache] New token cached for installation ${installationId}, batch ${batchIndex}. Expires at ${expiresAt.toISOString()}`);
+  app.log.info(`[batchTokenCache] New token cached for installation ${installationId}, batch ${batchIndex}. Expires at ${expiresAt.toISOString()}`);
   return tokenData.token;
 }
 
