@@ -1,10 +1,12 @@
 # split-token-app
 
-> A GitHub App built with [Probot](https://github.com/probot/probot) that A Probot app
+> A GitHub App built with [Probot](https://github.com/probot/probot).
+When you generate an installation access token for a GitHub App, the installation access token will have access to all repositories that the installation was granted access to, **up to 500 Repositories**, if you chose to install the App on selected Repositories. If your repository access exceeds 500 repos, you can use the repositories or repository_ids body parameters to specify individual repositories that the installation access token can access.
+This App is a demo on how to apply this option.
 
 ---
 
-## Requirements for a solution to the GitHub 500-repo token limit:
+## Requirements for a solution to the GitHub 500-repo token limit
 
 ### Summary of requirements:
 
