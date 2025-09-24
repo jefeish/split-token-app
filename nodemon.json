@@ -1,0 +1,6 @@
+{
+  "ignore": [
+    "repo-access-tokens.json",
+    "some-folder/"
+  ]
+}
