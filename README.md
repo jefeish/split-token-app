@@ -36,6 +36,40 @@ TBD
 
 ---
 
+```mermaid
+sequenceDiagram
+    participant User
+    participant ProbotApp
+    participant GitHubAPI
+    participant RepoCache
+    participant Octokit
+
+    User->>ProbotApp: Starts app
+    ProbotApp->>RepoCache: populateRepoCache(app)
+    RepoCache->>GitHubAPI: List installations/repos
+    GitHubAPI-->>RepoCache: Repo data
+    RepoCache-->>ProbotApp: repoCache populated
+
+    ProbotApp->>GitHubAPI: getAccessToken (all repos)
+    GitHubAPI-->>ProbotApp: Token (batch)
+
+    ProbotApp->>GitHubAPI: getAccessToken (subset)
+    GitHubAPI-->>ProbotApp: Token (subset)
+
+    loop For each repo
+        ProbotApp->>GitHubAPI: getAccessToken (single repo)
+        GitHubAPI-->>ProbotApp: Token (single)
+    end
+
+    User->>ProbotApp: Triggers issues.opened event
+    ProbotApp->>Octokit: getOctokitForRepo(app, repoFullName)
+    Octokit->>GitHubAPI: Post issue comment
+    GitHubAPI-->>Octokit: Comment confirmation
+    Octokit-->>ProbotApp: Success
+```
+
+---
+
 ## Contributing
 
 If you have suggestions for how split-token-app could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
@@ -45,3 +79,5 @@ For more, check out the [Contributing Guide](CONTRIBUTING.md).
 ## License
 
 [ISC](LICENSE) © 2025 Jürgen Efeish
+
+---
