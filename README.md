@@ -4,7 +4,7 @@
  By default, when you generate an installation access token for a GitHub App, the installation access token will have access to all repositories that the installation was granted access to. 
  If you chose to install the App on selected Repositories, you are limited to 500 repositories per requested App-Token. You can use the repositories or repository_ids to specify individual repositories that the AppInstallationToken can access.
 
-This App is a quick demonstration on how the token generation bevaves and an example of a batch token creation.
+This App is a quick demonstration on how the token generation behaves and an example of a batch token creation.
 
 ---
 NOTE: This App is best tested in an ORG with more than 500 Repositories!
