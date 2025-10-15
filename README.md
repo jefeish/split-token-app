@@ -11,6 +11,26 @@ NOTE: This App is best tested in an ORG with more than 500 Repositories!
 
 ![diagram](diagram.svg)
 
+### High-Level Process Flow
+
+```mermaid
+flowchart TD
+    A[GitHub App Starts] --> B[Populate Repository Cache]
+    B --> C{Installation has > 500 repos?}
+    C -->|Yes| D[Split into batches of 500]
+    C -->|No| E[Single batch]
+    D --> F[Generate Token for Each Batch]
+    E --> F
+    F --> G[Cache Tokens with Expiration]
+    G --> H[Listen for Webhook Events]
+    H --> I{Token Expired?}
+    I -->|Yes| J[Generate New Batch Token]
+    I -->|No| K[Use Cached Token]
+    J --> K
+    K --> L[Execute API Request]
+    L --> H
+```
+
 ### Summary of requirements:
 
 1. You need a list of all repos registered with the app, either their repo_id or repo_name (short name) and installation_id.
