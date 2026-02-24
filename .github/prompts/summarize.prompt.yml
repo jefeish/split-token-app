@@ -1,0 +1,24 @@
+# file: summarize.prompt.yml
+name: summarize_text
+description: >
+  Evaluates how well the model summarizes a paragraph into one concise sentence.
+
+prompts:
+  - role: system
+    content: "You are a helpful assistant that summarizes text into a single sentence."
+  - role: user
+    content: "{{input}}"
+
+    tests:
+      - name: simple_summary
+        input: "The cat sat on the mat because it was warm and comfortable."
+        expected: "The cat sat on the mat to stay warm and comfortable."
+
+      - name: longer_text
+        input: "GitHub Copilot helps developers by suggesting code completions and entire functions in real time, reducing boilerplate and speeding up workflows."
+        expected: "GitHub Copilot suggests code in real time to help developers code faster."
+
+      - name: unrelated_text
+        input: "Bananas are rich in potassium and are a healthy snack for athletes."
+        expected: "Bananas are a potassium-rich, healthy snack for athletes."
+
